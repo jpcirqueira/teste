@@ -12,6 +12,10 @@ interface EnvConfig {
     password: string;
     name: string;
   };
+  cache: {
+    enabled: boolean;
+    ttlSeconds: number;
+  };
 }
 
 function getEnvVariable(key: string, defaultValue?: string): string {
@@ -31,6 +35,10 @@ export const env: EnvConfig = {
     user: getEnvVariable('DATABASE_USER', 'postgres'),
     password: getEnvVariable('DATABASE_PASSWORD', 'postgres'),
     name: getEnvVariable('DATABASE_NAME', 'app_db'),
+  },
+  cache: {
+    enabled: getEnvVariable('CACHE_ENABLED', 'true').toLowerCase() === 'true',
+    ttlSeconds: parseInt(getEnvVariable('CACHE_TTL_SECONDS', '300'), 10),
   },
 };
 

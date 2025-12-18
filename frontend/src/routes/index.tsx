@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 
 // Lazy load pages for code splitting
 const Home = lazy(() => import('@/pages/Home'));
+const CepSearch = lazy(() => import('@/pages/CepSearch'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 // Loading component
@@ -24,6 +25,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingFallback />}>
         <Home />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/cep',
+    element: (
+      <Suspense fallback={<LoadingFallback />}>
+        <CepSearch />
       </Suspense>
     ),
   },

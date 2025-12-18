@@ -266,3 +266,4 @@ import { useNews } from '@/hooks/useNews';
 ## License
 
 ISC
+

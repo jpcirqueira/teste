@@ -1,0 +1,92 @@
+.card {
+  background-color: rgba(100, 108, 255, 0.05);
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #646cff;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  transition: background-color 0.25s ease;
+}
+
+.field:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
+  .card {
+    background-color: rgba(100, 108, 255, 0.08);
+    border-color: rgba(100, 108, 255, 0.4);
+  }
+
+  .title {
+    color: #535bf2;
+  }
+
+  .field {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .field:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .label {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .value {
+    color: #213547;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+}
