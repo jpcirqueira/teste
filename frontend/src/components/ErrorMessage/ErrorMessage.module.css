@@ -1,0 +1,49 @@
+.errorContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 2px solid #ff6b6b;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.errorIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.errorContent {
+  flex: 1;
+}
+
+.errorTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ff6b6b;
+}
+
+.errorMessage {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
+  .errorContainer {
+    background-color: rgba(255, 107, 107, 0.08);
+  }
+
+  .errorTitle {
+    color: #c92a2a;
+  }
+
+  .errorMessage {
+    color: #213547;
+  }
+}

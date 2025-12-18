@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useHealthCheck } from '@/hooks/useHealthCheck';
 
 function Home() {
@@ -14,6 +15,38 @@ function Home() {
       <p style={{ marginTop: '1rem', marginBottom: '2rem' }}>
         Projeto configurado com TypeScript, React Router DOM, React Query, Axios e testes
       </p>
+
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '1rem',
+        marginBottom: '2rem',
+        flexWrap: 'wrap'
+      }}>
+        <Link 
+          to="/cep" 
+          style={{
+            padding: '0.75rem 1.5rem',
+            backgroundColor: '#646cff',
+            color: 'white',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: '600',
+            transition: 'all 0.25s ease',
+            display: 'inline-block'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#535bf2';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#646cff';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+        >
+          🔍 Buscar CEP
+        </Link>
+      </div>
 
       <div style={{ 
         padding: '1.5rem', 
