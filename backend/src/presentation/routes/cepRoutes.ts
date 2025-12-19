@@ -16,6 +16,9 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
     '/cep/:cep',
     {
       schema: {
+        tags: ['CEP'],
+        summary: 'Search address by CEP',
+        description: 'Retrieves address information from a Brazilian postal code (CEP). Accepts format with or without hyphen (e.g., 12345-678 or 12345678)',
         params: {
           type: 'object',
           properties: {
@@ -28,27 +31,29 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
         },
         response: {
           200: {
+            description: 'Address found successfully',
             type: 'object',
             properties: {
-              success: { type: 'boolean' },
+              success: { type: 'boolean', description: 'Request success status' },
               data: {
                 type: 'object',
                 properties: {
-                  cep: { type: 'string' },
-                  logradouro: { type: 'string' },
-                  complemento: { type: 'string' },
-                  bairro: { type: 'string' },
-                  localidade: { type: 'string' },
-                  uf: { type: 'string' },
-                  ibge: { type: 'string' },
-                  gia: { type: 'string' },
-                  ddd: { type: 'string' },
-                  siafi: { type: 'string' },
+                  cep: { type: 'string', description: 'Postal code' },
+                  logradouro: { type: 'string', description: 'Street name' },
+                  complemento: { type: 'string', description: 'Address complement' },
+                  bairro: { type: 'string', description: 'Neighborhood' },
+                  localidade: { type: 'string', description: 'City' },
+                  uf: { type: 'string', description: 'State abbreviation' },
+                  ibge: { type: 'string', description: 'IBGE code' },
+                  gia: { type: 'string', description: 'GIA code' },
+                  ddd: { type: 'string', description: 'Area code' },
+                  siafi: { type: 'string', description: 'SIAFI code' },
                 },
               },
             },
           },
           400: {
+            description: 'Invalid CEP format',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
@@ -57,6 +62,7 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
             },
           },
           404: {
+            description: 'CEP not found',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
@@ -65,6 +71,7 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
             },
           },
           500: {
+            description: 'Internal server error',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
@@ -73,6 +80,7 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
             },
           },
           503: {
+            description: 'External service unavailable',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
