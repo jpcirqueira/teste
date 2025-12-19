@@ -3,23 +3,24 @@ import { CepController } from '@presentation/controllers/CepController';
 import { GetAddressByCepUseCase } from '@application/useCases/GetAddressByCepUseCase';
 import { ViaCepService } from '@infrastructure/services/ViaCepService';
 
+interface CepParams {
+  cep: string;
+}
+
 export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
   const viaCepService = new ViaCepService();
   const getAddressByCepUseCase = new GetAddressByCepUseCase(viaCepService);
   const cepController = new CepController(getAddressByCepUseCase);
 
-  fastify.get(
+  fastify.get<{ Params: CepParams }>(
     '/cep/:cep',
     {
       schema: {
-        description: 'Busca endereço por CEP usando a API ViaCEP',
-        tags: ['cep'],
         params: {
           type: 'object',
           properties: {
             cep: {
               type: 'string',
-              description: 'CEP a ser consultado (com ou sem máscara)',
               pattern: '^[0-9]{5}-?[0-9]{3}$',
             },
           },
@@ -27,7 +28,6 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
         },
         response: {
           200: {
-            description: 'Endereço encontrado com sucesso',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
@@ -49,7 +49,6 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
             },
           },
           400: {
-            description: 'CEP inválido',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
@@ -58,7 +57,6 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
             },
           },
           404: {
-            description: 'CEP não encontrado',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
@@ -67,7 +65,6 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
             },
           },
           500: {
-            description: 'Erro interno do servidor',
             type: 'object',
             properties: {
               success: { type: 'boolean' },
@@ -76,7 +73,6 @@ export async function cepRoutes(fastify: FastifyInstance): Promise<void> {
             },
           },
           503: {
-            description: 'Serviço externo indisponível',
             type: 'object',
             properties: {
               success: { type: 'boolean' },

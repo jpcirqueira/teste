@@ -29,7 +29,7 @@ export function NewsList({
         <p className={styles.emptyIcon}>📰</p>
         <p className={styles.emptyTitle}>Nenhuma notícia encontrada</p>
         <p className={styles.emptyMessage}>
-          Comece criando sua primeira notícia clicando no botão "Nova Notícia"
+          Comece criando sua primeira notícia clicando no botão &quot;Nova Notícia&quot;
         </p>
       </div>
     );

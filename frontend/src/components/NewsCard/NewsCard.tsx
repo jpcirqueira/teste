@@ -81,7 +81,7 @@ export function NewsCard({ news, onEdit, onDelete, isDeleting }: NewsCardProps) 
             <p className={styles.confirmMessage}>
               Tem certeza que deseja deletar esta notícia?
             </p>
-            <p className={styles.confirmTitle}>"{news.title}"</p>
+            <p className={styles.confirmTitle}>&quot;{news.title}&quot;</p>
             <div className={styles.confirmActions}>
               <button
                 className={styles.confirmCancel}
