@@ -19,16 +19,36 @@ export async function newsRoutes(
   // Create news
   server.post('/news', {
     schema: {
+      tags: ['News'],
+      summary: 'Create a new news article',
+      description: 'Creates a new news article with title and description',
       body: createNewsSchema,
       response: {
         201: {
+          description: 'News article created successfully',
           type: 'object',
           properties: {
-            id: { type: 'string' },
-            title: { type: 'string' },
-            description: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' },
+            id: { type: 'string', description: 'News article ID' },
+            title: { type: 'string', description: 'News title' },
+            description: { type: 'string', description: 'News description' },
+            createdAt: { type: 'string', description: 'Creation timestamp' },
+            updatedAt: { type: 'string', description: 'Last update timestamp' },
+          },
+        },
+        400: {
+          description: 'Validation error',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
+          },
+        },
+        500: {
+          description: 'Internal server error',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
           },
         },
       },
@@ -40,9 +60,13 @@ export async function newsRoutes(
   // List news with pagination and filters
   server.get('/news', {
     schema: {
+      tags: ['News'],
+      summary: 'List news articles',
+      description: 'Retrieves a paginated list of news articles with optional filters by title and description',
       querystring: listNewsQuerySchema,
       response: {
         200: {
+          description: 'List of news articles with pagination metadata',
           type: 'object',
           properties: {
             data: {
@@ -50,23 +74,31 @@ export async function newsRoutes(
               items: {
                 type: 'object',
                 properties: {
-                  id: { type: 'string' },
-                  title: { type: 'string' },
-                  description: { type: 'string' },
-                  createdAt: { type: 'string' },
-                  updatedAt: { type: 'string' },
+                  id: { type: 'string', description: 'News article ID' },
+                  title: { type: 'string', description: 'News title' },
+                  description: { type: 'string', description: 'News description' },
+                  createdAt: { type: 'string', description: 'Creation timestamp' },
+                  updatedAt: { type: 'string', description: 'Last update timestamp' },
                 },
               },
             },
             metadata: {
               type: 'object',
               properties: {
-                total: { type: 'number' },
-                page: { type: 'number' },
-                limit: { type: 'number' },
-                totalPages: { type: 'number' },
+                total: { type: 'number', description: 'Total number of news articles' },
+                page: { type: 'number', description: 'Current page number' },
+                limit: { type: 'number', description: 'Items per page' },
+                totalPages: { type: 'number', description: 'Total number of pages' },
               },
             },
+          },
+        },
+        500: {
+          description: 'Internal server error',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
           },
         },
       },
@@ -78,16 +110,36 @@ export async function newsRoutes(
   // Get news by ID
   server.get('/news/:id', {
     schema: {
+      tags: ['News'],
+      summary: 'Get news article by ID',
+      description: 'Retrieves a specific news article by its ID',
       params: newsIdParamSchema,
       response: {
         200: {
+          description: 'News article found',
           type: 'object',
           properties: {
-            id: { type: 'string' },
-            title: { type: 'string' },
-            description: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' },
+            id: { type: 'string', description: 'News article ID' },
+            title: { type: 'string', description: 'News title' },
+            description: { type: 'string', description: 'News description' },
+            createdAt: { type: 'string', description: 'Creation timestamp' },
+            updatedAt: { type: 'string', description: 'Last update timestamp' },
+          },
+        },
+        404: {
+          description: 'News article not found',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
+          },
+        },
+        500: {
+          description: 'Internal server error',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
           },
         },
       },
@@ -99,17 +151,45 @@ export async function newsRoutes(
   // Update news
   server.put('/news/:id', {
     schema: {
+      tags: ['News'],
+      summary: 'Update news article',
+      description: 'Updates an existing news article with new title and/or description',
       params: newsIdParamSchema,
       body: updateNewsSchema,
       response: {
         200: {
+          description: 'News article updated successfully',
           type: 'object',
           properties: {
-            id: { type: 'string' },
-            title: { type: 'string' },
-            description: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' },
+            id: { type: 'string', description: 'News article ID' },
+            title: { type: 'string', description: 'News title' },
+            description: { type: 'string', description: 'News description' },
+            createdAt: { type: 'string', description: 'Creation timestamp' },
+            updatedAt: { type: 'string', description: 'Last update timestamp' },
+          },
+        },
+        400: {
+          description: 'Validation error',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
+          },
+        },
+        404: {
+          description: 'News article not found',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
+          },
+        },
+        500: {
+          description: 'Internal server error',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
           },
         },
       },
@@ -121,11 +201,30 @@ export async function newsRoutes(
   // Delete news
   server.delete('/news/:id', {
     schema: {
+      tags: ['News'],
+      summary: 'Delete news article',
+      description: 'Deletes a news article by its ID',
       params: newsIdParamSchema,
       response: {
         204: {
           type: 'null',
-          description: 'No content',
+          description: 'News article deleted successfully',
+        },
+        404: {
+          description: 'News article not found',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
+          },
+        },
+        500: {
+          description: 'Internal server error',
+          type: 'object',
+          properties: {
+            error: { type: 'string' },
+            message: { type: 'string' },
+          },
         },
       },
     },
