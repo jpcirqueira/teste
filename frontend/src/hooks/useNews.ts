@@ -3,7 +3,7 @@ import apiClient from '@/api/client';
 import { News, CreateNewsDTO, UpdateNewsDTO, ListNewsResponse } from '@/types';
 
 // Get all news
-export const useNews = (page = 1, limit = 10) => {
+export const useNews = (page = 1, limit = 10, enabled = true) => {
   return useQuery<ListNewsResponse>({
     queryKey: ['news', page, limit],
     queryFn: async () => {
@@ -12,6 +12,7 @@ export const useNews = (page = 1, limit = 10) => {
       });
       return response.data;
     },
+    enabled,
   });
 };
 
