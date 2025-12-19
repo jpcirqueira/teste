@@ -1,0 +1,283 @@
+.card {
+  background-color: rgba(100, 108, 255, 0.05);
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.card:hover {
+  border-color: rgba(100, 108, 255, 0.5);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #646cff;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.editButton,
+.deleteButton {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.editButton {
+  background-color: rgba(100, 108, 255, 0.1);
+  color: #646cff;
+}
+
+.editButton:hover:not(:disabled) {
+  background-color: rgba(100, 108, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.deleteButton {
+  background-color: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background-color: rgba(255, 107, 107, 0.2);
+  transform: translateY(-1px);
+}
+
+.editButton:disabled,
+.deleteButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.description {
+  margin: 0 0 1rem 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metaLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.metaValue {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.confirmOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.confirmDialog {
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 90%;
+  text-align: center;
+}
+
+.confirmMessage {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.confirmTitle {
+  margin: 0 0 1.5rem 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ff6b6b;
+}
+
+.confirmActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.confirmCancel,
+.confirmDelete {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.confirmCancel {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.confirmCancel:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.confirmDelete {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.confirmDelete:hover {
+  background-color: #ff5252;
+  transform: translateY(-1px);
+}
+
+@media (prefers-color-scheme: light) {
+  .card {
+    background-color: rgba(100, 108, 255, 0.08);
+    border-color: rgba(100, 108, 255, 0.4);
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(100, 108, 255, 0.2);
+  }
+
+  .title {
+    color: #535bf2;
+  }
+
+  .editButton {
+    background-color: rgba(100, 108, 255, 0.15);
+    color: #535bf2;
+  }
+
+  .editButton:hover:not(:disabled) {
+    background-color: rgba(100, 108, 255, 0.25);
+  }
+
+  .deleteButton {
+    background-color: rgba(255, 107, 107, 0.15);
+    color: #d63031;
+  }
+
+  .deleteButton:hover:not(:disabled) {
+    background-color: rgba(255, 107, 107, 0.25);
+  }
+
+  .description {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .footer {
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .metaLabel {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .metaValue {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .confirmDialog {
+    background-color: white;
+    border-color: rgba(255, 107, 107, 0.4);
+  }
+
+  .confirmMessage {
+    color: #213547;
+  }
+
+  .confirmCancel {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #213547;
+  }
+
+  .confirmCancel:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .editButton,
+  .deleteButton {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .confirmActions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .confirmCancel,
+  .confirmDelete {
+    width: 100%;
+  }
+}
