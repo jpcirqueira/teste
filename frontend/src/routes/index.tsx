@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-// Lazy load pages for code splitting
 const Home = lazy(() => import('@/pages/Home'));
 const CepSearch = lazy(() => import('@/pages/CepSearch'));
+const News = lazy(() => import('@/pages/News'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 // Loading component
@@ -33,6 +33,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LoadingFallback />}>
         <CepSearch />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/news',
+    element: (
+      <Suspense fallback={<LoadingFallback />}>
+        <News />
       </Suspense>
     ),
   },

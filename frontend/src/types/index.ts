@@ -12,32 +12,29 @@ export interface HealthCheckResponse {
 export interface News {
   id: string;
   title: string;
-  content: string;
-  author: string;
-  published: boolean;
+  description: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface CreateNewsDTO {
   title: string;
-  content: string;
-  author: string;
-  published?: boolean;
+  description: string;
 }
 
 export interface UpdateNewsDTO {
   title?: string;
-  content?: string;
-  author?: string;
-  published?: boolean;
+  description?: string;
 }
 
 export interface ListNewsResponse {
   data: News[];
-  total: number;
-  page: number;
-  limit: number;
+  metadata: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 }
 
 // Address Types

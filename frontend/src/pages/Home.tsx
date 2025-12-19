@@ -10,12 +10,8 @@ function Home() {
       margin: '0 auto', 
       padding: '2rem',
       textAlign: 'center'
-    }}>
-      <h1>Frontend React + Vite</h1>
-      <p style={{ marginTop: '1rem', marginBottom: '2rem' }}>
-        Projeto configurado com TypeScript, React Router DOM, React Query, Axios e testes
-      </p>
 
+    }}>
       <div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -45,6 +41,29 @@ function Home() {
           }}
         >
           🔍 Buscar CEP
+        </Link>
+        <Link 
+          to="/news" 
+          style={{
+            padding: '0.75rem 1.5rem',
+            backgroundColor: '#646cff',
+            color: 'white',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: '600',
+            transition: 'all 0.25s ease',
+            display: 'inline-block'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#535bf2';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#646cff';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+        >
+          📰 Gerenciar Notícias
         </Link>
       </div>
 
@@ -86,26 +105,6 @@ function Home() {
         )}
       </div>
 
-      <div style={{ marginTop: '2rem' }}>
-        <h3>Tecnologias Configuradas</h3>
-        <ul style={{ 
-          listStyle: 'none', 
-          padding: 0,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1rem',
-          marginTop: '1rem'
-        }}>
-          <li>⚡ Vite</li>
-          <li>⚛️ React 18</li>
-          <li>🔷 TypeScript</li>
-          <li>🛣️ React Router DOM</li>
-          <li>🔄 React Query</li>
-          <li>📡 Axios</li>
-          <li>🧪 Vitest + React Testing Library</li>
-          <li>🐳 Docker</li>
-        </ul>
-      </div>
     </div>
   );
 }
