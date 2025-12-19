@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '../utils/test-utils';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '../utils/test-utils';
 import CepSearch from '../../src/pages/CepSearch';
 import { useCep } from '@/hooks/useCep';
 import { Address } from '@/types';
@@ -10,19 +9,22 @@ vi.mock('@/hooks/useCep', () => ({
   useCep: vi.fn()
 }));
 
+const mockUseCepReturn = (overrides = {}) => ({
+  data: undefined,
+  isLoading: false,
+  isError: false,
+  error: null,
+  refetch: vi.fn(),
+  ...overrides,
+});
+
 describe('CepSearch Page', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it('render elements', () => {
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn());
 
     render(<CepSearch />);
     
@@ -32,13 +34,7 @@ describe('CepSearch Page', () => {
   });
 
   it('renders back to home link', () => {
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn());
 
     render(<CepSearch />);
     
@@ -48,13 +44,7 @@ describe('CepSearch Page', () => {
   });
 
   it('displays initial empty state', () => {
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn());
 
     render(<CepSearch />);
     
@@ -69,13 +59,10 @@ describe('CepSearch Page', () => {
       }
     } as AxiosError;
 
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn({
       isError: true,
       error: mockError,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<CepSearch />);
     
@@ -91,13 +78,10 @@ describe('CepSearch Page', () => {
       }
     } as AxiosError;
 
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn({
       isError: true,
       error: mockError,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<CepSearch />);
     
@@ -112,13 +96,10 @@ describe('CepSearch Page', () => {
       }
     } as AxiosError;
 
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn({
       isError: true,
       error: mockError,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<CepSearch />);
     
@@ -133,13 +114,10 @@ describe('CepSearch Page', () => {
       }
     } as AxiosError;
 
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn({
       isError: true,
       error: mockError,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<CepSearch />);
     
@@ -154,13 +132,10 @@ describe('CepSearch Page', () => {
       }
     } as AxiosError<{ message: string }>;
 
-    vi.mocked(useCep).mockReturnValue({
-      data: undefined,
-      isLoading: false,
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn({
       isError: true,
       error: mockError,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<CepSearch />);
     
@@ -181,13 +156,9 @@ describe('CepSearch Page', () => {
       siafi: '7107'
     };
 
-    vi.mocked(useCep).mockReturnValue({
+    vi.mocked(useCep).mockReturnValue(mockUseCepReturn({
       data: mockAddress,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<CepSearch />);
     

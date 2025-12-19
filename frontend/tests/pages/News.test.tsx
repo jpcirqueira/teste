@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '../utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import NewsPage from '../../src/pages/News';
 import { useNews, useCreateNews, useUpdateNews, useDeleteNews } from '@/hooks/useNews';
-import { News, ListNewsResponse } from '@/types';
+import { ListNewsResponse } from '@/types';
 import { AxiosError } from 'axios';
 
 vi.mock('@/hooks/useNews', () => ({
@@ -17,6 +17,21 @@ const mockScrollTo = vi.fn();
 Object.defineProperty(window, 'scrollTo', {
   writable: true,
   value: mockScrollTo,
+});
+
+const mockUseNewsReturn = (overrides = {}) => ({
+  data: undefined,
+  isLoading: false,
+  isError: false,
+  error: null,
+  refetch: vi.fn(),
+  ...overrides,
+});
+
+const mockMutationReturn = (overrides = {}) => ({
+  mutateAsync: vi.fn(),
+  isPending: false,
+  ...overrides,
 });
 
 describe('News Page', () => {
@@ -51,30 +66,23 @@ describe('News Page', () => {
     vi.clearAllMocks();
     mockScrollTo.mockClear();
     
-    vi.mocked(useCreateNews).mockReturnValue({
+    vi.mocked(useCreateNews).mockReturnValue(mockMutationReturn({
       mutateAsync: mockMutateAsync,
-      isPending: false,
-    } as any);
+    }));
     
-    vi.mocked(useUpdateNews).mockReturnValue({
+    vi.mocked(useUpdateNews).mockReturnValue(mockMutationReturn({
       mutateAsync: mockMutateAsync,
-      isPending: false,
-    } as any);
+    }));
     
-    vi.mocked(useDeleteNews).mockReturnValue({
+    vi.mocked(useDeleteNews).mockReturnValue(mockMutationReturn({
       mutateAsync: mockMutateAsync,
-      isPending: false,
-    } as any);
+    }));
   });
 
   it('renders main elements', () => {
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -84,13 +92,9 @@ describe('News Page', () => {
   });
 
   it('renders back to home link', () => {
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -107,13 +111,10 @@ describe('News Page', () => {
       }
     } as AxiosError<{ message: string }>;
 
-    vi.mocked(useNews).mockReturnValue({
-      data: undefined,
-      isLoading: false,
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       isError: true,
       error: mockError,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -121,13 +122,9 @@ describe('News Page', () => {
   });
 
   it('displays news list when data is available', () => {
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -146,13 +143,9 @@ describe('News Page', () => {
       },
     };
 
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: emptyData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -164,13 +157,9 @@ describe('News Page', () => {
     const user = userEvent.setup();
     mockMutateAsync.mockResolvedValueOnce({ id: '3', title: 'New News', description: 'New description' });
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -201,13 +190,9 @@ describe('News Page', () => {
   it('opens edit modal with news data when edit button is clicked', async () => {
     const user = userEvent.setup();
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -228,13 +213,9 @@ describe('News Page', () => {
     const user = userEvent.setup();
     mockMutateAsync.mockResolvedValueOnce({ id: '1', title: 'Updated News', description: 'Updated description' });
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -267,13 +248,9 @@ describe('News Page', () => {
     const user = userEvent.setup();
     mockMutateAsync.mockResolvedValueOnce(undefined);
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -288,21 +265,15 @@ describe('News Page', () => {
     });
   });
 
-  it('shows deleting state on news card', async () => {
-    const user = userEvent.setup();
-    
-    vi.mocked(useDeleteNews).mockReturnValue({
+  it('shows deleting state on news card', () => {
+    vi.mocked(useDeleteNews).mockReturnValue(mockMutationReturn({
       mutateAsync: vi.fn().mockImplementation(() => new Promise(() => {})),
       isPending: true,
-    } as any);
+    }));
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
   });
@@ -318,13 +289,9 @@ describe('News Page', () => {
       },
     };
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: multiPageData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
@@ -355,25 +322,17 @@ describe('News Page', () => {
       },
     };
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: multiPageData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     
     expect(screen.getByText('Página 1 de 3')).toBeInTheDocument();
     
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: lastPageData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
     
     const nextButton = screen.getByRole('button', { name: /próxima página/i });
     await user.click(nextButton);
@@ -385,13 +344,9 @@ describe('News Page', () => {
   });
 
   it('does not show pagination with single page', () => {
-    vi.mocked(useNews).mockReturnValue({
+    vi.mocked(useNews).mockReturnValue(mockUseNewsReturn({
       data: mockNewsData,
-      isLoading: false,
-      isError: false,
-      error: null,
-      refetch: vi.fn(),
-    } as any);
+    }));
 
     render(<NewsPage />);
     

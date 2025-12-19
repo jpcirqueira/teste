@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CreateNewsDTO, News } from '@/types';
 import { NewsForm } from '@/components/NewsForm';
 import styles from './NewsModal.module.css';
